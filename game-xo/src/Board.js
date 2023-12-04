@@ -7,7 +7,7 @@ export default function Board({ xIsNext, history, IsWinner, onPlay, onFinish }) 
   let player = xIsNext ? "X" : "O";
    
     function handleClick(index, player) {
-      if (moves.includes(index) || IsWinner) {
+      if (moves.includes(index) || (IsWinner && lastMove > 0)) {
         return;
       }
 
