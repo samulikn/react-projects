@@ -1,26 +1,28 @@
+import { useState } from "react";
 import Square from './Square';
 
-export default function Board({ xIsNext, history, IsWinner, onPlay, onFinish }) {
+export default function Board({ xIsNext, history, onPlay }) {
+  const [winner, setWinner] = useState(null);
   let moves =  history.historyOfMoves;
   let values = history.historyOfValues;
   let lastMove = moves.length == 1 ? 0 : moves.length - 1;
   let player = xIsNext ? "X" : "O";
-   
+
     function handleClick(index, player) {
-      if (moves.includes(index) || (IsWinner && lastMove > 0)) {
+      if (moves.includes(index) || (winner && lastMove > 0)) {
         return;
       }
 
       onPlay(index, player, updatedHistory => {
-          const winner = calculateWinner(index, updatedHistory);
-          onFinish(winner);
+          const calcWinner = calculateWinner(index, updatedHistory);
+          setWinner(calcWinner);
         }); 
     }
 
     let status;
-    if (IsWinner) {
-      status = 'Winner: ' + IsWinner.winner;
-    } else if (lastMove === 9 && !IsWinner) {
+    if (winner) {
+      status = 'Winner: ' + winner.player;
+    } else if (lastMove === 9 && !winner) {
         status = 'Its draw!';
     } else {
       status = 'Next player: ' + player;
@@ -37,7 +39,7 @@ export default function Board({ xIsNext, history, IsWinner, onPlay, onFinish }) 
         {Array.from({ length: columns }, (_, c) => {
           let index = r * columns + c;
           let value = values[index];
-          let isWinning = IsWinner && IsWinner.location.some(i => i === index);
+          let isWinning = winner && winner.location.some(i => i === index);
           return <Square key={index} value={value} isWinning={isWinning} onSquareClick={() => handleClick(index, player)} />
         })}
       </div>
@@ -68,7 +70,7 @@ export default function Board({ xIsNext, history, IsWinner, onPlay, onFinish }) 
       const [a, b, c] = checkLines[i]
 
       if (valuesToCheck[a] && valuesToCheck[a] === valuesToCheck[b] && valuesToCheck[a] === valuesToCheck[c]) {
-        result.winner = valuesToCheck[a];
+        result.player = valuesToCheck[a];
         result.location = checkLines[i];
         return result;
       }

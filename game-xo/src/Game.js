@@ -8,8 +8,7 @@ export default function Game() {
   const [history, setHistory] = useState({ historyOfMoves: [null], historyOfValues: {}});
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
-  const [switchState, setSwitchState] = useState({status: false});
-  const [IsWinner, setIsWinner] = useState(null);
+  const [switchChecked, setSwitchChecked] = useState({ status: false });
 
   const moves = history.historyOfMoves;
   const values = history.historyOfValues;
@@ -20,39 +19,35 @@ export default function Game() {
     }
   const currentHistory = { historyOfMoves: currentHistoryOfMoves, historyOfValues: currentHistoryOfValues }
 
-  function handlePlay(index, value, callback) {
+  function recordMove(index, value, backToBoard) {
     const nextMove = [ ...currentHistoryOfMoves, index ];
     const nextValue = { ...currentHistoryOfValues, [index] : value };
     const updatedHistory = { ...history, historyOfMoves : nextMove, historyOfValues : nextValue };
     setHistory(updatedHistory);
     setCurrentMove(nextMove.length - 1);
-    callback(updatedHistory);
+    backToBoard(updatedHistory);
   }
 
-  function handleChange(event) { 
-    setSwitchState({ ...switchState, [event.target.name]: event.target.checked }); 
-  }; 
+  function turnSwitch(event) { 
+    setSwitchChecked({ ...switchChecked, [event.target.name]: event.target.checked }); 
+  }
 
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
   }
 
-  function endGame(winner) {
-    setIsWinner(winner);
-  }
-
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} history={currentHistory} IsWinner={IsWinner} onPlay={handlePlay} onFinish={endGame} />
+        <Board xIsNext={xIsNext} history={currentHistory} onPlay={recordMove} />
       </div>
       <div className="game-info">
         <div className="game-switch">
           <FormControlLabel
             control={ 
               <Switch
-                checked={switchState.status} 
-                onChange={handleChange} 
+                checked={switchChecked.status} 
+                onChange={turnSwitch} 
                 color="primary"
                 name="status"
               /> 
@@ -60,7 +55,7 @@ export default function Game() {
             label="Sort history DESC"
           /> 
         </div>
-        <GameInfo history={history.historyOfMoves} isReverse={switchState.status} currentMove={currentMove} onCurrentMove={jumpTo}/>
+        <GameInfo history={history.historyOfMoves} isReverse={switchChecked.status} currentMove={currentMove} onCurrentMove={jumpTo}/>
       </div>
     </div>
   );
