@@ -5,9 +5,19 @@
 }
 
 :root {
-  --transparentgray: rgba(0, 0, 0, 0.4);
+  --transparentgray: rgba(0, 0, 0, 0.5);
   --lightblue: rgb(210, 228, 247);
   --blue: rgb(142, 192, 236);
+  --darkblue: rgb(9, 3, 118);
+  --black: black;
+  --grey: grey;
+  --lightyellow: rgb(247, 247, 243);
+  --lightgrey: rgb(173, 173, 173);
+  --white: white;
+  --dimgrey: dimgray;
+  --darkgrey: rgb(84, 84, 84);
+  --red: red;
+  --green: #00ea5a;
 }
 
 html,
@@ -19,7 +29,11 @@ body {
   background-color: var(--lightblue);
 }
 
-#dashboard {
+.login {
+  max-height: 100%;
+}
+
+.dashboard {
   max-width: 100%;
 }
 
@@ -36,8 +50,8 @@ img {
 
 h1 {
   font-weight: 500;
-  color: rgb(9, 3, 118);
-  font-family: sans-serif;
+  color: var(--darkblue);
+  /* font-family: sans-serif; */
   font-weight: bold;
   
 }
@@ -46,14 +60,14 @@ h2 {
   padding-top: 20px;
   margin: 0 10px 10px 10px;
   font-weight: 600;
-  color: black;
+  color: var(--black);
 }
 
-.login-page-content span, #attention, .dialog span {
-  color: grey;
+.login-page-content span, #attention, .modal span {
+  color: var(--grey);
 }
 
-.login-page-content, .limit-page-content {
+.login-page-content {
   margin: 10px;
   display: flex;
   justify-content: center;
@@ -65,7 +79,7 @@ form {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  background-color: rgb(247, 247, 243);
+  background-color: var(--lightyellow);
   max-width: 720px;
   max-height: 100%;
   padding: 15px;
@@ -85,14 +99,14 @@ button {
 .inputBox,
 select {
   font-size: 16px;
-  border-color: rgb(173, 173, 173);
+  border-color: var(--lightgrey);
   border-radius: 0.2rem;
 }
 
 select {
   border-width: 2px;
-  border-top-color: dimgray;
-  border-left-color: dimgray;
+  border-top-color: var(--dimgrey);
+  border-left-color: var(--dimgrey);
 }
 
 .logo-header {
@@ -108,21 +122,20 @@ select {
   
 }
 
-/* #logoutDashboard, #logoutLimit, #credit, #details { */
-  .logoutButton {
+.logoutButton {
   padding: 10px;
   margin: 5px;
   border-radius: 0.3rem;
   text-decoration: none;
-  color: black;
+  color: var(--black);
   font-size: 18px;
-  background-color: rgb(142, 192, 236);
+  background-color: var(--blue);
 }
 
 .balance-details {
   text-align: center;
   padding: 10px;
-  background-color: rgb(247, 247, 243);
+  background-color: var(--lightyellow);
   font-weight: 700;
   font-size: 24px;
 }
@@ -147,12 +160,12 @@ th {
   /* table-layout: fixed; */
   padding: 5px;
   text-align: center;
-  background-color: darkgrey;
+  background-color: var(--lightgrey);
 }
 
 tr {
   /* width: 100%; */
-  background-color: #f2f2f2;
+  background-color: rgb(242, 242, 242);
 }
 
 td {
@@ -162,14 +175,14 @@ td {
 #transaction {
   display: flex;
   flex-direction: column;
-  background-color: #f2f2f2;
+  background-color: var(--lightyellow)/*rgb(242, 242, 242)*/;
   margin: 0 10px 10px 10px;
-  border-right: 2px solid #ddd;
+  border-right: 2px solid var(--lightgrey); /*rgb(222, 222, 222)*/
 }
 
 #transaction tr {
   width: 100%;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid var(--lightgrey); /*rgb(222, 222, 222)*/
   display: table;
   table-layout: fixed;
   border-collapse: collapse;
@@ -178,52 +191,51 @@ td {
 
 #transaction td {
   text-align: center;
-  border-left: 2px solid #ddd;
-
+  border-left: 2px solid var(--lightgrey); /*rgb(222, 222, 222)*/
 }
 
-.dialog {
-  /* display: none; */
+.modal {
+  display: block;
   position: absolute;
   padding: 5px;
   top: 25%;
   left: 20%;
   border-radius: 0.5rem;
-  border-color: white;
+  border-color: var(--white);
   background-color: var(--blue);
   max-width: 480px;
   max-height: 100%;
-  z-index: 1002;
+  box-shadow: 3px 3px 3px var(--darkgrey);
+  z-index: 1001;
 }
 
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--transparentgray);
+  z-index: 1;
+}
 
-/* #dialogheader {
+.modalHeader {
   cursor: move;
-} */
+}
 
 .button {
   align-self: center;
 }
 
-/* #closeTransactionDialog {
-  z-index: -1;
-} */
-
-.prevLimit {
-  font-weight: 600;
-  font-size: 20px;
-  text-align: center;
-}
-
 .errorMessage {
-  color: red;
+  color: var(--red);
   flex-grow: 2;
 }
 
 input:focus,
 select:focus,
 button:focus {
-  border-color: #00ea5a;
+  border-color: var(--green);
   outline: 0;
 }
 
@@ -231,8 +243,3 @@ button:hover {
   filter: brightness(115%);
   cursor: pointer;
 }
-
-/* button:focus {
-  outline: none;
-  border: 3px solid var(--grey);
-} */

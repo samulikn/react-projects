@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logo from './wheat.png';
 import './App.css';
 import Transaction from './Transaction';
@@ -6,6 +6,10 @@ import Modal from './Modal'
 
 export default function Dashboard({ accountData, updateAccount }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    useEffect(() => {
+        document.title = "My account";
+    },[]);
 
     const logOut = () => {
         updateAccount("");
@@ -29,14 +33,14 @@ export default function Dashboard({ accountData, updateAccount }) {
         <div className="dashboard">
             <header>
                 <div className="logo-header">
-                    <img src={ logo } alt="logo"/>
+                    <img src={logo} alt="logo"/>
                     <h1>Bank App</h1>
                     <button className="logoutButton" onClick={logOut}>Logout</button>
                 </div>
             </header>
             <div className="balance-details">
-                Balance: <span>{ accountData.balance.toFixed(2) }</span><span>{ accountData.currency }</span>
-                <h2>{ accountData.description }</h2>
+                Balance: <span>{accountData.balance.toFixed(2)}</span><span>{accountData.currency}</span>
+                <h2>{accountData.description}</h2>
             </div>
             <div className="account-transactions">
                 <h2>Transactions</h2>

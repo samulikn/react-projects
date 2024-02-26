@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAccount, createAccount } from './API';
 import logo from './wheat.png';
 import './App.css';
-
-import { getAccount, createAccount } from './API';
 
 export default function Login({ onUserChange }) {
     const [user, setUser] = useState("");
@@ -12,6 +11,10 @@ export default function Login({ onUserChange }) {
     const [description, setDescription] = useState("");
     const [balance, setBalance] = useState(0);
     const [currency, setCurrency] = useState("EUR");
+
+    useEffect(() => {
+        document.title = "Login";
+    },[]);
 
     async function login(form) {
         form.preventDefault();
@@ -46,7 +49,7 @@ export default function Login({ onUserChange }) {
     return (
         <div className="login">
             <div className="title-logo">
-                <img src={ logo } alt="logo"/>
+                <img src={logo} alt="logo"/>
                 <h1>Bank App</h1>
             </div>
 
@@ -61,11 +64,11 @@ export default function Login({ onUserChange }) {
                             name="user"
                             value={user}
                             placeholder="Enter your user name"
-                            onChange={ e => {
+                            onChange={(e) => {
                                 if (userError) setUserError("");
-                                setUser(e.target.value);} 
-                            } 
-                            maxLength={ 20 }
+                                setUser(e.target.value);
+                            }} 
+                            maxLength={20}
                             required />
                         <div className="errorMessage">{userError}</div>
                         <div className="button">
@@ -82,18 +85,18 @@ export default function Login({ onUserChange }) {
                             name="user"
                             value={newUser} 
                             placeholder="Enter your user name"
-                            onChange={e => {
+                            onChange={(e) => {
                                 if (newUserError) setNewUserError("");
-                                setNewUser(e.target.value);}
-                            } 
-                            maxLength={ 20 }
+                                setNewUser(e.target.value);
+                            }} 
+                            maxLength={20}
                             required />
                         <label htmlFor="currencyId">Currency <span>(required)</span>:</label>
                             <select 
                                 id="currencyId"
                                 name="currency"
-                                value={ currency } 
-                                onChange={e => setCurrency(e.target.value)}
+                                value={currency} 
+                                onChange={(e) => setCurrency(e.target.value)}
                             >
                                 <option value="$">USD ($)</option>
                                 <option value="&euro;">EUR (&euro;)</option>
@@ -104,15 +107,15 @@ export default function Login({ onUserChange }) {
                             id="descriptionId"
                             name="description"
                             value={description}
-                            onChange={e => setDescription(e.target.value)}
-                            maxLength={ 100 }/>
+                            onChange={(e) => setDescription(e.target.value)}
+                            maxLength={100}/>
                         <label htmlFor="balanceId">Current balance:</label>
                         <input className="inputBox"
                             id="balanceId"
                             name="balance"
                             type="number" 
                             value={balance}
-                            onChange={e => setBalance(e.target.value)} />
+                            onChange={(e) => setBalance(e.target.value)} />
                         <div className="errorMessage">{newUserError}</div>
                         <div className="button">
                             <button type="submit">Register</button>

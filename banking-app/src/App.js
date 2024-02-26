@@ -7,11 +7,9 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 export default function App () {
   const [account, setAccount] = useState("");
   const navigate = useNavigate();
-  const storageKey = 'savedAccount';
 
   const handleDataChange = (accountData) => {
     setAccount(accountData);
-    localStorage.setItem(storageKey,JSON.stringify(accountData));
     navigate("/");
   };
 
