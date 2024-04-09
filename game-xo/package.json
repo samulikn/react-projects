@@ -6,10 +6,13 @@
     "react-scripts": "^5.0.1"
   },
   "main": "/index.js",
-  "name": "vy6j3f",
-  "description": null,
-  "version": "0.0.0",
+  "name": "tic-tac-toe",
+  "description": "",
+  "version": "0.1.0",
+  "homepage": "https://samulikn.github.io/react-projects",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -26,5 +29,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
