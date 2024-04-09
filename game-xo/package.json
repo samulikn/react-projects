@@ -9,7 +9,7 @@
   "name": "tic-tac-toe",
   "description": "",
   "version": "0.1.0",
-  "homepage": "https://samulikn.github.io/react-projects/game-xo/",
+  "homepage": "https://samulikn.github.io/react-projects/game-xo",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
