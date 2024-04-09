@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/react-projects/static/css/main.47fb98e7.css",
-    "main.js": "/react-projects/static/js/main.b56ccfce.js",
-    "index.html": "/react-projects/index.html",
-    "main.47fb98e7.css.map": "/react-projects/static/css/main.47fb98e7.css.map",
-    "main.b56ccfce.js.map": "/react-projects/static/js/main.b56ccfce.js.map"
+    "main.css": "/react-projects/game-xo/static/css/main.47fb98e7.css",
+    "main.js": "/react-projects/game-xo/static/js/main.b56ccfce.js",
+    "index.html": "/react-projects/game-xo/index.html",
+    "main.47fb98e7.css.map": "/react-projects/game-xo/static/css/main.47fb98e7.css.map",
+    "main.b56ccfce.js.map": "/react-projects/game-xo/static/js/main.b56ccfce.js.map"
   },
   "entrypoints": [
     "static/css/main.47fb98e7.css",
