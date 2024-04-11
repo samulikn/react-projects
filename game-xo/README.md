@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-In the game, First player starts playing the game as Player X and Second player as Player 0. Both players make their moves in consecutive turns. The player who makes a straight 3-block chain wins the game.
+In the game, First player starts playing the game as Player X and Second player as Player 0. Both players make their moves in consecutive turns. The player who makes a straight 3-block chain wins the game. The players also have posibility to "go back in time" to the previous moves in the game.
 
 ![Tic-Tac-Toe pict](https://github.com/samulikn/react-projects/blob/main/game-xo/src/images/tic-tac-toe.png)
 
