@@ -1,3 +1,3 @@
 # My React projects
-- [Tic-tac-toe game](game-xo)
+- [Tic-Tac-Toe game](game-xo)
 - [Banking app](banking-app)
