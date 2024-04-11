@@ -2,10 +2,18 @@
   box-sizing: border-box;
 }
 
+:root {
+  --light-grey: #eee;
+  --white: #fff;
+  --green: green;
+  --grey: #999;
+}
+
 body {
   font-family: sans-serif;
-  margin: 20px;
+  margin: 20vw 0;
   padding: 0;
+  background-color: var(--light-grey);
 }
 
 h1 {
@@ -50,23 +58,14 @@ code {
 ol {
   margin: 0;
 }
+
 button {
   margin: 2px;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
-}
-
 .square {
-  background: #fff;
-  border: 1px solid #999;
+  background: var(--white);
+  border: 1px solid var(--grey);
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -80,7 +79,7 @@ body {
 }
 
 .square-winner {
-  color: green;
+  color: var(--green);
 }
 
 .board-row:after {
@@ -90,17 +89,22 @@ body {
 }
 
 .status {
-  margin-bottom: 10px;
+  margin: 0.8rem 0;
 }
+
 .game {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem;
 }
 
 .game-info {
-  margin-left: 30px;
+  flex-shrink: 3;
 }
 
-.game-switch {
-  margin-left: 20px;
+.game-board {
+  flex-shrink: 0;
 }
+
