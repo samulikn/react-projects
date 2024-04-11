@@ -4,4 +4,4 @@ In the game, First player starts playing the game as Player X and Second player 
 
 ![Tic-Tac-Toe pict](https://github.com/samulikn/react-projects/blob/main/game-xo/src/images/tic-tac-toe.png)
 
-Play the game by clicking [here](https://github.io/samulikn/react-projects/).
+Play the game by clicking [here](https://samulikn.github.io/react-projects/).
