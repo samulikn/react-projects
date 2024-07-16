@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getAccount, createAccount } from './API';
-import logo from './wheat.png';
 import './App.css';
 
 export default function Login({ onUserChange }) {
@@ -47,12 +46,7 @@ export default function Login({ onUserChange }) {
     };
 
     return (
-        <div className="login">
-            <div className="title-logo">
-                <img src={logo} alt="logo"/>
-                <h1>Bank App</h1>
-            </div>
-
+        <main className="LoginPage">
             <div className="login-page-content">
                 <section>
                     <h2>Login</h2>
@@ -123,6 +117,6 @@ export default function Login({ onUserChange }) {
                     </form>
                 </section>
             </div>
-        </div>
+        </main>
     );
 }
