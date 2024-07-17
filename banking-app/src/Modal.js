@@ -3,6 +3,7 @@ import Draggable from 'react-draggable';
 import './App.css';
 import { addTransaction } from './API';
 import { getAccount } from './API';
+import { useNavigate } from "react-router-dom";
 
 export default function Modal({ user, isOpen, onCloseRequest, refreshData }){
     const [transactionDate, setTransactionDate] = useState("");
@@ -11,6 +12,7 @@ export default function Modal({ user, isOpen, onCloseRequest, refreshData }){
     const [transactionError, setTransactionError] = useState("");
 
     const nodeRef = useRef(null);
+    const navigate = useNavigate();
 
     function clearEntries() {
         setTransactionDate("");
@@ -34,6 +36,7 @@ export default function Modal({ user, isOpen, onCloseRequest, refreshData }){
             clearEntries();
             onCloseRequest();
             refreshData(accountData);
+            navigate("/dashboard");
         };
     };
 
@@ -52,7 +55,7 @@ export default function Modal({ user, isOpen, onCloseRequest, refreshData }){
                         <div className="modalHeader">
                             <h2>Transaction:</h2>
                         </div>
-                        <form autoComplete="off" onSubmit={record} onReset={onCloseRequest}>
+                        <form className="ModalForm" autoComplete="off" onSubmit={record} onReset={onCloseRequest}>
                             <label htmlFor="transactionDate">Date</label>
                             <input 
                                 id="transactionDate" 

@@ -8,7 +8,7 @@
   --transparentgray: rgba(0, 0, 0, 0.5);
   --lightblue: rgb(210, 228, 247);
   --blue: rgb(142, 192, 236);
-  --darkblue: rgb(9, 3, 118);
+  --darkblue: rgb(8, 3, 120);
   --black: black;
   --grey: grey;
   --lightyellow: rgb(247, 247, 243);
@@ -25,22 +25,70 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   padding: 0;
   margin: 0;
-  max-height: 100%;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
   background-color: var(--lightblue);
 }
 
-.login {
-  max-height: 100%;
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 
-.dashboard {
-  max-width: 100%;
+.App {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Header, .Footer {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.Home, .Missing {
+  flex-grow: 0.5;
+  margin-top: 2rem;
+  font-size: 6vw;
+}
+
+.Home p, .Missing p {
+  margin: 1rem;
+  text-align: center;
+}
+
+.LoginPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.DashboardPage {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .title-logo {
-  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem;
+}
+
+.Footer p {
+  margin: 0.5rem 0.5rem 0.1rem;
   text-align: center;
-  padding-top: 10px;
 }
 
 img {
@@ -51,9 +99,7 @@ img {
 h1 {
   font-weight: 500;
   color: var(--darkblue);
-  /* font-family: sans-serif; */
   font-weight: bold;
-  
 }
 
 h2 {
@@ -78,9 +124,8 @@ form {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
   background-color: var(--lightyellow);
-  max-width: 720px;
+  width: 250px;
   max-height: 100%;
   padding: 15px;
   border-radius: 1rem;
@@ -96,8 +141,9 @@ button {
   width: 130px;
 }
 
-.inputBox,
+.inputBox, .ModalForm input,
 select {
+  margin: 0.25rem 0 0.5rem 0;
   font-size: 16px;
   border-color: var(--lightgrey);
   border-radius: 0.2rem;
@@ -109,22 +155,18 @@ select {
   border-left-color: var(--dimgrey);
 }
 
-.logo-header {
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+.logo-header h1 {
+  flex-grow: 1; 
 }
 
-.logo-header h1 {
+.account-details {
   flex-grow: 1;
-  
 }
 
 .logoutButton {
-  padding: 10px;
-  margin: 5px;
+  align-self: flex-start;
+  height: 2rem;
+  padding: 4px 5px;
   border-radius: 0.3rem;
   text-decoration: none;
   color: var(--black);
@@ -133,6 +175,8 @@ select {
 }
 
 .balance-details {
+  display: flex;
+  justify-content: space-between;
   text-align: center;
   padding: 10px;
   background-color: var(--lightyellow);
@@ -153,18 +197,15 @@ select {
 
 table {
   width: 100%;
-  /* table-layout: fixed; */
 }
 
 th {
-  /* table-layout: fixed; */
   padding: 5px;
   text-align: center;
   background-color: var(--lightgrey);
 }
 
 tr {
-  /* width: 100%; */
   background-color: rgb(242, 242, 242);
 }
 
@@ -209,6 +250,10 @@ td {
   z-index: 1001;
 }
 
+.ModalForm {
+  min-width: 360px;
+}
+
 .modal-wrapper {
   position: fixed;
   top: 0;
@@ -228,8 +273,9 @@ td {
 }
 
 .errorMessage {
+  height: 16px;
   color: var(--red);
-  flex-grow: 2;
+  /* flex-grow: 2; */
 }
 
 input:focus,

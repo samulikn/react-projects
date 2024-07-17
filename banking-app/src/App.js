@@ -1,28 +1,40 @@
+import Layout from "./Layout";
+import Home from "./Home";
+import Login from "./Login";
+import Dashboard from "./Dashboard";
+import Missing from "./Missing";
+import "./App.css";
 import { useState } from "react";
-import './App.css';
-import Login from './Login';
-import Dashboard from './Dashboard';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
-export default function App () {
+export default function App() {
   const [account, setAccount] = useState("");
-  const navigate = useNavigate();
 
   const handleDataChange = (accountData) => {
     setAccount(accountData);
-    navigate("/");
   };
 
-  const redirect = account ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />;
-
   return (
-    <>
-      <Routes>
-        <Route path="/" element={redirect}/>
-        <Route path="/login" element={<Login onUserChange={handleDataChange}/>}/>
-        <Route path="/dashboard" element={<Dashboard accountData={account} updateAccount={handleDataChange}/>}/>
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route
+          index
+          element={
+            <Home accountData={account} updateAccount={handleDataChange} />
+          }
+        />
+        <Route
+          path="login"
+          element={<Login onUserChange={handleDataChange} />}
+        />
+        <Route
+          path="dashboard"
+          element={
+            <Dashboard accountData={account} updateAccount={handleDataChange} />
+          }
+        />
+        <Route path="*" element={<Missing />} />
+      </Route>
+    </Routes>
   );
-};
-
+}
