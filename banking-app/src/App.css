@@ -8,7 +8,7 @@
   --transparentgray: rgba(0, 0, 0, 0.5);
   --lightblue: rgb(210, 228, 247);
   --blue: rgb(142, 192, 236);
-  --darkblue: rgb(9, 3, 118);
+  --darkblue: rgb(8, 3, 120);
   --black: black;
   --grey: grey;
   --lightyellow: rgb(247, 247, 243);
@@ -52,6 +52,17 @@ body {
 .Header, .Footer {
   width: 100%;
   padding: 0.5rem;
+}
+
+.Home, .Missing {
+  flex-grow: 0.5;
+  margin-top: 2rem;
+  font-size: 6vw;
+}
+
+.Home p, .Missing p {
+  margin: 1rem;
+  text-align: center;
 }
 
 .LoginPage {
@@ -113,9 +124,8 @@ form {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
   background-color: var(--lightyellow);
-  max-width: 720px;
+  width: 250px;
   max-height: 100%;
   padding: 15px;
   border-radius: 1rem;
@@ -131,8 +141,9 @@ button {
   width: 130px;
 }
 
-.inputBox,
+.inputBox, .ModalForm input,
 select {
+  margin: 0.25rem 0 0.5rem 0;
   font-size: 16px;
   border-color: var(--lightgrey);
   border-radius: 0.2rem;
@@ -239,6 +250,10 @@ td {
   z-index: 1001;
 }
 
+.ModalForm {
+  min-width: 360px;
+}
+
 .modal-wrapper {
   position: fixed;
   top: 0;
@@ -258,8 +273,9 @@ td {
 }
 
 .errorMessage {
+  height: 16px;
   color: var(--red);
-  flex-grow: 2;
+  /* flex-grow: 2; */
 }
 
 input:focus,

@@ -1,18 +1,17 @@
-import { useState, useEffect } from "react";
-// import logo from './wheat.png';
+import { useState } from "react";
 import "./App.css";
 import Transaction from "./Transaction";
 import Modal from "./Modal";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard({ accountData, updateAccount }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    document.title = "My account";
-  }, []);
+  const navigate = useNavigate();
 
   const logOut = () => {
     updateAccount("");
+    navigate("/login");
   };
 
   const handleClickOpen = () => {

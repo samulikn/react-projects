@@ -1,43 +1,40 @@
-import Header from "./Header";
-import Footer from "./Footer";
+import Layout from "./Layout";
+import Home from "./Home";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
+import Missing from "./Missing";
 import "./App.css";
 import { useState } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 export default function App() {
   const [account, setAccount] = useState("");
-  const navigate = useNavigate();
 
   const handleDataChange = (accountData) => {
     setAccount(accountData);
-    navigate("/");
   };
 
-  const redirect = account ? (
-    <Navigate to="/dashboard" replace />
-  ) : (
-    <Navigate to="/login" replace />
-  );
-
   return (
-    <div className="App">
-      <Header />
-      <Routes>
-        <Route path="/" element={redirect} />
+    <Routes>
+      <Route path="/" element={<Layout />}>
         <Route
-          path="/login"
+          index
+          element={
+            <Home accountData={account} updateAccount={handleDataChange} />
+          }
+        />
+        <Route
+          path="login"
           element={<Login onUserChange={handleDataChange} />}
         />
         <Route
-          path="/dashboard"
+          path="dashboard"
           element={
             <Dashboard accountData={account} updateAccount={handleDataChange} />
           }
         />
-      </Routes>
-      <Footer />
-    </div>
+        <Route path="*" element={<Missing />} />
+      </Route>
+    </Routes>
   );
 }
