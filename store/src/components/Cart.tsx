@@ -28,7 +28,6 @@ function Cart() {
           );
         })}
       </ul>
-      <hr></hr>
       <div className="mt-10 mr-8 flex flex-col items-end text-xl sm:text-2xl">
         <p>Total items: {totalItems}</p>
         <p>Total price: {totalPrice}</p>
