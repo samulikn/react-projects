@@ -40,8 +40,8 @@ function CartItem({ item, dispatch, REDUCER_ACTIONS }: PropsType) {
   };
 
   const content = (
-    <li className="mb-2 mx-auto w-full gap-2 flex flex-wrap items-center justify-end">
-      <img src={img} alt={item.name} className="w-[50px] h-[40px]" />
+    <li className="mb-2 mx-auto w-full gap-2 flex flex-wrap items-center justify-end border-b-2 border-gray-50">
+      <img src={img} alt={item.name} className="w-8" />
       <div className="sm:pl-4 w-3/12 flex-grow sm:text-2xl">{item.name}</div>
       <div className="sm:pl-6 1/6 text-right sm:text-2xl">
         {new Intl.NumberFormat("nl-NL", {
