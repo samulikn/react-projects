@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors')
 const crypto = require('crypto');
 const pkg = require('./package.json');
@@ -25,9 +24,9 @@ const db = {
 };
 
 // Create the Express app & setup middlewares
-const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+const app = express(); 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors({ origin: /http:\/\/(127(\.\d){3}|localhost)/ }));
 app.options('*', cors());
 
