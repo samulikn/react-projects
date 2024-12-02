@@ -1,29 +1,26 @@
 {
   "name": "bank-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Bank API",
   "private": true,
-  "main": "server.js",
+  "main": "server",
   "scripts": {
-    "start": "node server.js",
-    "lint": "eslint",
-    "format": "prettier --single-quote --write *.js"
+    "start": "node server",
+    "dev": "nodemon server"
   },
   "keywords": [],
   "author": {
     "name": "Nataliia"
   },
   "license": "MIT",
-  "devDependencies": {
-    "eslint": "^7.5.0",
-    "prettier": "^2.0.5"
-  },
   "dependencies": {
-    "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "express": "^4.18.2"
   },
   "engines": {
     "node": ">=10"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }
