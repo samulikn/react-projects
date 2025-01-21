@@ -1,5 +1,6 @@
 {
-    "products": [
+    "products": 
+    [
         {
             "sku": "item0001",
             "name": "White bread (round)",
