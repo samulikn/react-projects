@@ -38,7 +38,7 @@ export const ProductsProvider = ({ children }: ChildrenType) => {
 
   useEffect(() => {
     const fetchData = async (): Promise<ProductType[]> => {
-      const data = await fetch("http://localhost:3500/products")
+      const data = await fetch("http://localhost:5000/products")
         .then((res) => {
           return res.json();
         })

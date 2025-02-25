@@ -16,7 +16,7 @@ function Cart() {
   ) : (
     <div className="mb-auto">
       <h2 className="ml-16 my-7 text-4xl text-[#0D707D] font-light">Shopping Cart:</h2>
-        <ul className="mt-4 mx-4 flex flex-col w-11/12">
+        <ul className="mt-4 mx-auto flex flex-col w-11/12">
         {cart.map((item) => {
           return (
             <CartItem
