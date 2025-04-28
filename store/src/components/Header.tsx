@@ -1,15 +1,22 @@
 import Nav from "./Nav";
+import { Link } from "react-router-dom";
+// import { useNavigate, useLocation } from 'react-router-dom';
 
 type PropsType = {
-  viewCart: boolean;
-  setViewCart: React.Dispatch<React.SetStateAction<boolean>>;
+  isLogged: boolean;
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Header = ({ viewCart, setViewCart }: PropsType) => {
+const Header = ({ isLogged, setIsLogged }: PropsType) => {
+
   const content = (
-    <header className="h-1/7 bg-[#2c2e3d] text-white px-14 py-3 flex justify-between gap-8 items-center">
-      <h1 className="text-xl">Bakehouse</h1>
-      <Nav viewCart={viewCart} setViewCart={setViewCart} />
+    <header className="h-1/7 bg-[#2c2e3d] text-white px-10 py-3 flex justify-between space-x-4 items-center">
+      <Link to="/">
+        <h1 className="text-xl cursor-pointer hover:text-teal-700">
+          Bakehouse
+        </h1>
+      </Link>
+      <Nav isLogged={isLogged} />
     </header>
   );
 

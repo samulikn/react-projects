@@ -13,11 +13,10 @@ function Product({
   product,
   dispatch,
   REDUCER_ACTIONS,
-
 }: PropsType): ReactElement {
   const img: string = new URL(`../images/${product.sku}.jpeg`, import.meta.url)
     .href;
-  console.log(img);
+  // console.log(img);
 
   const addToCart = () =>
     dispatch({ type: REDUCER_ACTIONS.ADD, payload: { ...product, qty: 1 } });
@@ -37,7 +36,7 @@ function Product({
         }).format(product.price)}
       </p>
       <button
-        className="py-1 px-4 bg-[#2c2e3d] text-white text-sm rounded-full self-center"
+        className="py-1 px-4 bg-[#2c2e3d] text-white text-sm rounded-full self-center cursor-pointer active:bg-teal-800"
         onClick={addToCart}
       >
         ADD TO CART<i className="bi bi-cart3 pl-2"></i>

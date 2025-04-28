@@ -1,24 +1,31 @@
-import useCart from "../hooks/useCart";
+//import useCart from "../hooks/useCart";
 
-type PropsType = {
-  viewCart: boolean;
-};
+// type PropsType = {
+//   viewCart: boolean;
+// };
 
-function Footer({ viewCart }: PropsType) {
+function Footer() {
   const year: number = new Date().getFullYear();
 
-  const { totalItems, totalPrice } = useCart();
+  //const { totalItems, totalPrice } = useCart();
 
-  const content = viewCart ? (
-    <p className="text-center">Shopping Cart &copy; {year}</p>
-  ) : (
-    <>
-      <p>Total items: {totalItems}</p>
-      <p>TotalPrice: {totalPrice}</p>
-      <p className="text-center">Shopping Cart &copy; {year}</p>
-    </> 
+  // const content = viewCart ? (
+  //   <p className="text-center">Shopping Cart &copy; {year}</p>
+  // ) : (
+  //   <>
+  //     <p>Total items: {totalItems}</p>
+  //     <p>TotalPrice: {totalPrice}</p>
+  //     <p className="text-center">Shopping Cart &copy; {year}</p>
+  //   </>
+  // );
+
+  const content = <p className="text-center">Shopping Cart &copy; {year}</p>;
+
+  return (
+    <footer className="h-1/7 mt-20 bg-[#2c2e3d] text-white px-8 py-2">
+      {content}
+    </footer>
   );
-  return <footer className="h-1/7 mt-20 bg-[#2c2e3d] text-white px-8 py-2">{content}</footer>;
 }
 
 export default Footer;

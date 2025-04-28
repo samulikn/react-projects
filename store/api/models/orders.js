@@ -26,11 +26,11 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      quantity: {
+      price: {
         type: Number,
         required: true,
       },
-      price: {
+      qty: {
         type: Number,
         required: true,
       },

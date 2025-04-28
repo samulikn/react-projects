@@ -15,10 +15,10 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // desc: Create new user
 // route: POST
 const createNewUser = asyncHandler(async (req, res) => {
-  const { email, password, firstName, lastName, dateOfBirth } = req.body;
+  const { email, password, firstname, lastname, birthday } = req.body;
   
 
-  if (!email || !password || !firstName || !lastName) {
+  if (!email || !password || !firstname || !lastname) {
     return res
       .status(400)
       .json({ message: "email, password, first and last names are required fields!" });
@@ -35,7 +35,7 @@ const createNewUser = asyncHandler(async (req, res) => {
 
   const hashedPwd = await bcrypt.hash(password, 10); // hash password
 
-  const newUser = { email, "password": hashedPwd, firstName, lastName, dateOfBirth };
+  const newUser = { email, "password": hashedPwd, firstname, lastname, birthday };
 
   const user = await User.create(newUser);
 
@@ -49,9 +49,9 @@ const createNewUser = asyncHandler(async (req, res) => {
 // desc: Update user
 // route: PATCH
 const updateUser = asyncHandler(async (req, res) => {
-  const { id, email, firstName, lastName, dateOfBirth } = req.body;
+  const { id, email, firstname, lastname, birthday } = req.body;
 
-  if (!id || !email || !firstName || !lastName) {
+  if (!id || !email || !firstname || !lastname) {
     return res
       .status(400)
       .json({ message: "email, first and last names are required!" });
@@ -70,9 +70,9 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 
   user.email = email
-  user.firstName = firstName
-  user.lastName = lastName
-  user.dateOfBirth = dateOfBirth;
+  user.firstname = firstname
+  user.lastname = lastname
+  user.birthday = birthday;
 
   const updatedUser = await user.save();
 
@@ -100,13 +100,27 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 // // desc: Get user by Id
 // // route: GET /:user
-// const getUserById = asyncHandler(async (req, res) => {
-//     const { id, email } = req.params;
-// })
+const getUserInfo = asyncHandler(async (req, res) => {
+    const { user } = req.params;
+
+    if (!user) {
+      return res.status(400).json({ message: "email is required!" });
+    }
+
+    const foundUser = await User.findOne({ email: user }).lean().exec();
+
+    if (!foundUser) {
+      return res.status(400).json({ message: `User not found!` });
+    }
+
+    return res.json(foundUser);
+
+})
 
 module.exports = {
   getAllUsers,
   createNewUser,
   updateUser,
   deleteUser,
+  getUserInfo,
 };

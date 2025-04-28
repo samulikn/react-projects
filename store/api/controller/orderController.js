@@ -104,22 +104,22 @@ const deleteOrder = asyncHandler(async (req, res) => {
 // desc: Get all orders by user
 // route: GET
 const getAllOrdersByUser = asyncHandler(async (req, res) => {
-  const user = req.params.user;
-  console.log(user)
+  const { user } = req.params;
 
   if (!user) {
     return res.status(400).json({ message: "user is required!" });
   }
 
-  const registeredUser = User.findOne({ email: user }).lean().exec();
+  const registeredUser = await User.findByEmail(user);
 
   if (!registeredUser) {
     return res
       .status(400)
       .json({ message: `Username ${user} is not registered.` });
   }
+  console.log('registeredUser:',registeredUser)
 
-  const orders = await Order.find({ email: registeredUser.email }).lean();
+  const orders = await Order.find({ email: registeredUser.email }).lean().exec();
   if (!orders.length) {
     return res.status(400).json({ message: "No data found! " });
   }

@@ -9,6 +9,7 @@ function Cart() {
   const onSubmitOrder = () => {
     dispatch({ type: REDUCER_ACTIONS.SUBMIT });
     setConfirm(true);
+    console.log(cart, totalPrice, totalItems);
   };
 
   const content = confirm ? (
@@ -32,7 +33,7 @@ function Cart() {
         <p>Total items: {totalItems}</p>
         <p>Total price: {totalPrice}</p>
         <button disabled={!totalItems} onClick={onSubmitOrder}
-                className="mt-4 px-4 py-1.5 border-solid border-2 rounded-2xl bg-[#2C2E3D] text-white">
+                className="mt-4 px-4 py-1.5 border-solid border-2 rounded-2xl bg-[#2C2E3D] text-white active:bg-teal-800">
           Checkout
         </button>
       </div>
