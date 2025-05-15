@@ -14,7 +14,7 @@ const initAuthState: AuthType = {
 
 export type UseAuthContextType = {
   auth: AuthType;
-  setAuth: (auth: AuthType) => void;
+  setAuth: (auth: AuthType ) => void;
 };
 
 const initAuthContext: UseAuthContextType = {

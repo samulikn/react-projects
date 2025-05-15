@@ -20,7 +20,7 @@ function Register() {
 
   const [firstname, setFirstname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
-  const [birthday, setBirthday] = useState<string>("");
+  const [birthday, setBirthday] = useState<Date>();
 
   const [email, setEmail] = useState<string>("");
   const [validEmail, setValidEmail] = useState<boolean>(false);
@@ -66,7 +66,7 @@ function Register() {
       setPassword("");
       setFirstname("");
       setLastname("");
-      setBirthday("");
+      setBirthday(undefined);
       navigate("/myaccount");
     }
   }, [success, navigate]);
@@ -78,7 +78,7 @@ function Register() {
     setLastname(e.target.value);
   };
   const onBirthdayChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBirthday(e.target.value);
+    setBirthday(new Date(e.target.value));
   };
   const onEmailChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value.toLowerCase());
@@ -132,7 +132,8 @@ function Register() {
       return;
     }
     try {
-      const response = await axios.post(
+      // const response = 
+      await axios.post(
         REGISTER_URL,
         JSON.stringify({ email, password, firstname, lastname, birthday }),
         {
@@ -140,9 +141,6 @@ function Register() {
           withCredentials: true,
         }
       );
-      // console.log(response.data);
-      // console.log(response.accessToken);
-      // console.log(JSON.stringify(response));
       setSuccess(true);
       //clear input fields
     } catch (err) {
@@ -161,20 +159,11 @@ function Register() {
 
   return (
     <>
-      {/* {success ? (
-        <section>
-          <h1>Success registration!</h1>
-          <Link to="/login" className="text-lg underline text-teal-800">
-            Login
-          </Link>
-        </section>
-      ) : ( */}
       <section className="m-auto flex flex-col flex-grow max-w-[860px] min-w-[330px]">
         <form className="mt-8 flex flex-col w-full" onSubmit={handleSubmit}>
           <h2 className="mb-2 text-center text-teal-700 text-2xl font-medium">
             New user
           </h2>
-          {/* <div> */}
           <label htmlFor="firstname" className="text-xl">
             First name:
           </label>
@@ -215,8 +204,6 @@ function Register() {
             placeholder="Type your date of birth"
             onChange={onBirthdayChanged}
           ></input>
-          {/* </div>
-        <div> */}
           <label htmlFor="email" className="text-xl">
             E-mail:
           </label>
@@ -304,7 +291,6 @@ function Register() {
           </Link>
         </p>
       </section>
-      {/* )} */}
     </>
   );
 }

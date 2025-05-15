@@ -107,12 +107,12 @@ const getUserInfo = asyncHandler(async (req, res) => {
       return res.status(400).json({ message: "email is required!" });
     }
 
-    const foundUser = await User.findOne({ email: user }).lean().exec();
+    const foundUser = await User.findByEmail(user);
 
     if (!foundUser) {
       return res.status(400).json({ message: `User not found!` });
     }
-
+  
     return res.json(foundUser);
 
 })

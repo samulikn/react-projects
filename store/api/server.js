@@ -5,6 +5,7 @@ const app = express();
 const path = require("path");
 const { logger, logEvents } = require("./middleware/logger");
 const errorHandler = require("./middleware/errorHandler");
+const credentials = require("./middleware/credentials")
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
@@ -20,7 +21,11 @@ connectDB();
 
 app.use(logger);
 
+app.use(credentials);
+
 app.use(cors(corsOptions));
+
+app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
 
@@ -30,9 +35,7 @@ app.use("/", require("./routes/root"));
 app.use("/products", require("./routes/productRoutes"));
 app.use('/register', require('./routes/registerRoutes'));
 app.use("/auth", require("./routes/authRoutes"));
-app.use("/refresh", require("./routes/refreshRoutes"));
 
-// app.use(verifyJWT);
 app.use("/users", require("./routes/userRoutes"));
 app.use("/orders", require("./routes/orderRoutes"));
 

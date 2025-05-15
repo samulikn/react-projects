@@ -22,7 +22,7 @@ function Product({
     dispatch({ type: REDUCER_ACTIONS.ADD, payload: { ...product, qty: 1 } });
 
   const content = (
-    <article className="mx-auto flex flex-col flex-wrap justify-end w-2/3 sm:w-1/4">
+    <article className="mx-auto sm:mx-5 mb-4 max-w-[300px] flex flex-col justify-end">
       <div className="pb-3 self-center flex justify-center">
         <img src={img} alt={product.name} className="max-h-full max-w-full" />
       </div>

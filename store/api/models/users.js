@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
         return this.findOne({ email }).exec();
       },
       findByToken(refreshToken) {
-        return this.findOne({ refreshToken: refreshToken }).exec();
+        return this.findOne({ refreshToken }).exec();
       },
     },
   }

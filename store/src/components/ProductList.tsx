@@ -27,12 +27,16 @@ export default function ProductList() {
 
   return (
     <main className="flex-grow">
-      <h2 className="my-5 pl-16 font-light text-4xl text-[#0D707D]">Most Popular</h2>
-      <div
-        className="mb-auto mx-auto flex flex-col gap-10 w-11/12
-                        sm:flex-row sm:flex-wrap"
-      >
-        {content}
+      <h2 className="my-5 pl-16 font-light text-4xl text-[#0D707D]">
+        Most Popular
+      </h2>
+      <div className="mb-auto mx-auto w-11/12">
+        <div
+          className="sm:justify-center-safe gap-10 flex flex-col
+                        sm:flex-row flex-wrap"
+        >
+          {content}
+        </div>
       </div>
     </main>
   );

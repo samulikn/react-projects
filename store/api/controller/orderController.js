@@ -117,11 +117,10 @@ const getAllOrdersByUser = asyncHandler(async (req, res) => {
       .status(400)
       .json({ message: `Username ${user} is not registered.` });
   }
-  console.log('registeredUser:',registeredUser)
 
   const orders = await Order.find({ email: registeredUser.email }).lean().exec();
   if (!orders.length) {
-    return res.status(400).json({ message: "No data found! " });
+    return res.status(406).json({ message: "No data found! " });
   }
   res.json(orders);
 });

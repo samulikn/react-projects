@@ -1,39 +1,25 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import useCart from "../hooks/useCart";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 type PropsType = {
   isLogged: boolean;
 };
 
 function Nav({ isLogged }: PropsType) {
-  const { user } = useParams();
+  const { auth } = useAuth();
+  const user = auth.email;
 
   const { totalItems } = useCart();
 
-  const testUser: UserDataType = {
-    firstname: "Nata",
-    lastName: "Shobotova",
-    dateOfBirth: "1986-11-08",
-    email: "samulikn@ukr.net",
-  };
-
-  type UserDataType = {
-    firstname: string;
-    lastName: string;
-    dateOfBirth: string;
-    email: string;
-  };
-
-  const userData = isLogged ? testUser : null;
-
-  const username = isLogged ? (
+  const username = user ? (
     <span className="pl-1 text-base hidden md:inline hover:text-teal-700">
-      {userData?.firstname}
+      {user}
     </span>
   ) : null;
 
-  const account = isLogged ? "/myaccount" : "/login";
+  const account = user ? "/myaccount" : "/login";
 
   return (
     <div className="inline-flex justify-end gap-8 text-xl flex-norap">

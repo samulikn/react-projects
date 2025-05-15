@@ -14,7 +14,7 @@ const handleNewUser = asyncHandler(async (req, res) => {
   }
 
   // check for duplicate data
-  const duplicate = await User.findByEmail({email});
+  const duplicate = await User.findByEmail(email);
 
   if (duplicate) {
     return res
