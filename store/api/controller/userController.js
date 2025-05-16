@@ -60,7 +60,7 @@ const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById({_id: id}).exec();
 
   if (!user) {
-    return res.status(400).json({ message: `User not found!` });
+    return res.status(406).json({ message: `User not found!` });
   }
 
   const duplicate = await User.findOne({ email }).lean().exec();

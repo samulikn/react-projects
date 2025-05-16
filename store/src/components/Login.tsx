@@ -47,8 +47,6 @@ function Login() {
           withCredentials: true,
         }
       );
-      // console.log(JSON.stringify(response?.data));
-      // console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;
       setAuth({ email, password, accessToken });
       setEmail("");

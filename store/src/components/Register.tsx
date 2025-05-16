@@ -9,8 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
 import { AxiosError } from "axios";
 
-export const EMAIL_REGEX = /^[\w-\.]+@([\w+])+\.([a-z]){2,4}$/i;
-export const PASSWORD_REGEX = /\w{8,20}/;
+export const EMAIL_REGEX: RegExp = /^[\w-\.]+@([\w+])+\.([a-z]){2,4}$/i;
+export const PASSWORD_REGEX: RegExp = /\w{8,20}/;
 
 const REGISTER_URL = "/register";
 
