@@ -5,7 +5,6 @@ import useAuth from "../hooks/useAuth";
 import axios, { axiosPrivate } from "../api/axios";
 import useOrders from "../hooks/useOrders";
 import { AxiosError } from "axios";
-import MAIL_REGEX from "./Register"
 
 export type UserType = {
   _id: string;

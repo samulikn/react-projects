@@ -35,7 +35,6 @@ app.use("/", require("./routes/root"));
 app.use("/products", require("./routes/productRoutes"));
 app.use('/register', require('./routes/registerRoutes'));
 app.use("/auth", require("./routes/authRoutes"));
-
 app.use("/users", require("./routes/userRoutes"));
 app.use("/orders", require("./routes/orderRoutes"));
 

@@ -32,9 +32,7 @@ const createNewOrder = asyncHandler(async (req, res) => {
   const order = await Order.create(newOrder);
 
   if (order) {
-    res.status(201).json({
-      message: `New order ${order.orderId} for ${order.email} created.`,
-    });
+    res.status(201).json(order.orderId);
   } else {
     res.status(400).json({ message: "Invalid order data!" });
   }

@@ -18,7 +18,7 @@ const ACTION_TYPE = {
   SUBMIT: "SUBMIT",
 };
 
-export type ReducerActionType = typeof ACTION_TYPE; //?? no idea where use these
+export type ReducerActionType = typeof ACTION_TYPE;
 
 export type ReducerAction = {
   type: string;
@@ -85,7 +85,7 @@ const reducer = (
       return { ...state, cart: [] };
     }
     default:
-      throw new Error("Underfined reducer action.type");
+      throw new Error("Underfined reducer action type");
   }
 };
 
@@ -100,14 +100,9 @@ const useCartContext = (initialState: CartStateType) => {
     return prev + cartItem.qty;
   }, 0);
 
-  const totalPrice: string = new Intl.NumberFormat("nl-NL", {
-    style: "currency",
-    currency: "EUR",
-  }).format(
-    state.cart.reduce((prev, cartItem) => {
-      return prev + cartItem.qty * cartItem.price;
-    }, 0)
-  );
+  const totalPrice: number = state.cart.reduce((prev, cartItem) => {
+    return prev + cartItem.qty * cartItem.price;
+  }, 0);
 
   const cart: CartItemType[] = state.cart.sort((a, b) => {
     const itemA: number = Number(a.sku.slice(-4));
@@ -124,7 +119,7 @@ const initCartContextState: UseCartContextType = {
   dispatch: () => {},
   REDUCER_ACTIONS: ACTION_TYPE,
   totalItems: 0,
-  totalPrice: "",
+  totalPrice: 0,
   cart: [],
 };
 

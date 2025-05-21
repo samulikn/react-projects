@@ -32,7 +32,7 @@ export default function ProductList() {
       </h2>
       <div className="mb-auto mx-auto w-11/12">
         <div
-          className="sm:justify-center-safe gap-10 flex flex-col
+          className="sm:justify-center-safe flex flex-col
                         sm:flex-row flex-wrap"
         >
           {content}
