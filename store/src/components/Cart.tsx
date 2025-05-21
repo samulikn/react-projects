@@ -1,6 +1,7 @@
 import useCart from "../hooks/useCart";
 import useAuth from "../hooks/useAuth";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 import { axiosPrivate } from "../api/axios";
 
@@ -9,6 +10,7 @@ const ORDER_URL = "/orders";
 function Cart() {
   const [confirm, setConfirm] = useState<boolean>(false);
   const [orderId, setOrderId] = useState<number>();
+  const [message, setMessage] = useState<string>();
 
   const { dispatch, REDUCER_ACTIONS, totalItems, totalPrice, cart } = useCart();
   const { auth } = useAuth();
@@ -72,6 +74,17 @@ function Cart() {
           Checkout
         </button>
       </div>
+      <p className="text-center">
+        You should{" "}
+        <Link to="/login" className="text-lg underline text-teal-800">
+          Login
+        </Link>{" "}
+        or{" "}
+        <Link to="/register" className="text-lg underline text-teal-800">
+          Register
+        </Link>{" "}
+        before checkout.
+      </p>
     </div>
   );
 
