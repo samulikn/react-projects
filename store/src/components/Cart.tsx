@@ -4,13 +4,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 import { axiosPrivate } from "../api/axios";
+import { AxiosError } from "axios";
 
 const ORDER_URL = "/orders";
 
 function Cart() {
   const [confirm, setConfirm] = useState<boolean>(false);
   const [orderId, setOrderId] = useState<number>();
-  const [message, setMessage] = useState<string>();
+  const [error, setError] = useState<string>("");
 
   const { dispatch, REDUCER_ACTIONS, totalItems, totalPrice, cart } = useCart();
   const { auth } = useAuth();
@@ -27,7 +28,13 @@ function Cart() {
         dispatch({ type: REDUCER_ACTIONS.SUBMIT });
         setConfirm(true);
       } catch (err) {
-        console.error(err);
+        if (err instanceof AxiosError) {
+          if (err.response?.status === 400) {
+            setError("Invalid data.");
+          } else {
+            console.error(err);
+          }
+        }
       }
     }
   };
@@ -73,6 +80,7 @@ function Cart() {
         >
           Checkout
         </button>
+        <p aria-disabled={!error} className="text-red-600">{error}</p>
       </div>
       <p className="text-center">
         You should{" "}
