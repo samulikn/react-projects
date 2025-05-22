@@ -21,7 +21,7 @@ const getAllOrders = asyncHandler(async (req, res) => {
 // To do:
 const createNewOrder = asyncHandler(async (req, res) => {
   const { email, total, items, status } = req.body;
-  const orderDate = format(new Date(), "yyyyMMdd\tHH:mm:ss");
+  const orderDate = new Date();
 
   if (!email || !items) {
     return res.status(400).json({ message: "email and items are required!" });
@@ -116,7 +116,10 @@ const getAllOrdersByUser = asyncHandler(async (req, res) => {
       .json({ message: `Username ${user} is not registered.` });
   }
 
-  const orders = await Order.find({ email: registeredUser.email }).lean().exec();
+  const orders = await Order.find({ email: registeredUser.email })
+    .sort({ orderId: -1 })
+    .lean()
+    .exec();
   if (!orders.length) {
     return res.status(406).json({ message: "No data found! " });
   }

@@ -10,15 +10,16 @@ type PropsType = {
 function Order({ order }: PropsType): ReactElement {
   const [expanded, setExpanded] = useState<boolean>(false);
 
-  let [date] = order.orderDate.split("\t")[0];
-  let [day, month, year] = [date.slice(-2), date.slice(4, 6), date.slice(0, 4)];
-  // let formatedDate = new Date(+year, +month - 1, +day).toDateString();
-  const orderDate = new Intl.DateTimeFormat("en-EN", {
-    dateStyle: "full",
-    // timeStyle: "short",
-  }).format(new Date(+year, +month - 1, +day));
+  const fullOrderDate: string = new Intl.DateTimeFormat("en-EN", {
+    dateStyle: "full"
+  }).format(new Date(order.orderDate));
 
-  let totalSum = new Intl.NumberFormat("nl-NL", {
+  const fullOrderTime: string = new Intl.DateTimeFormat("en-EN", {
+    hourCycle: "h23",
+    timeStyle: "medium"
+  }).format(new Date(order.orderDate));
+
+  let totalSum: string = new Intl.NumberFormat("nl-NL", {
     style: "currency",
     currency: "EUR",
   }).format(order.total);
@@ -27,7 +28,7 @@ function Order({ order }: PropsType): ReactElement {
     <div className="mb-5 flex flex-col">
       <p className="mt-1.5 font-bold">{order.status}</p>
       <div className="flex gap-12">
-        <p>{orderDate}</p>
+        <p>{fullOrderDate} {fullOrderTime}</p>
         <p>{totalSum}</p>
       </div>
       <div className="flex gap-20">

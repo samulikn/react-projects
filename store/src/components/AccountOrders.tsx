@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import Order from "./Order";
 import { OrderPropType } from "../context/OrderProvider";
 import useOrders from "../hooks/useOrders";
@@ -9,14 +9,20 @@ import { AxiosError } from "axios";
 const ORDERS_URL = "/orders/";
 
 function AccountOrders() {
+  const [message, setMessage] = useState<string>("");
+  const [visibleOrders, setVisibleOrders] = useState<OrderPropType[]>([]);
+
   const { auth } = useAuth();
   const user = auth.email;
   const { orders, setOrders } = useOrders();
   const axiosPrivate = useAxiosPrivate();
-  let noOrders = "";
+
+  const ordersFrom = 0;
+  const ordersTo = 2;
 
   useEffect(() => {
-    const getOrders = async () => {
+    setMessage("");
+    const getOrders = async (): Promise<void> => {
       try {
         const response = await axiosPrivate.get<OrderPropType[]>(
           ORDERS_URL + encodeURIComponent(user)
@@ -25,7 +31,7 @@ function AccountOrders() {
       } catch (err) {
         if (err instanceof AxiosError) {
           if (err.response?.status === 406) {
-            noOrders = "No orders yet.";
+            setMessage("No orders yet.");
           } else {
             console.error(err);
           }
@@ -33,34 +39,20 @@ function AccountOrders() {
       }
     };
     getOrders();
-  }, [auth]);
+  }, [user]);
 
-  // useEffect(() => {
-  //   const fetchData = async (): Promise<OrderPropType[]> => {
-  //     const data = await fetch(
-  //       "http://localhost:5000/orders/" + encodeURIComponent(user)
-  //     )
-  //       .then((res) => {
-  //         return res.json();
-  //       })
-  //       .catch((err) => {
-  //         if (err instanceof Error) console.log(err.message);
-  //       });
-  //     return data;
-  //   };
+  useEffect(() => {
+    setVisibleOrders(orders.slice(ordersFrom, ordersTo));
+  }, [orders, ordersTo]);
 
-  //   fetchData().then((orders) => {
-  //     // console.log(orders)
-  //     setOrders(orders);
-  //   });
-  // }, [user]);
-
-  let content: ReactElement | ReactElement[] = (
+  let content: ReactElement | ReactElement[] = !message ? (
     <p className="m-4">Loading...</p>
+  ) : (
+    <p>{message}</p>
   );
 
-  if (orders?.length) {
-    content = orders.map((order) => {
+  if (visibleOrders?.length) {
+    content = visibleOrders.map((order) => {
       return <Order key={order.orderId} order={order} />;
     });
   }
