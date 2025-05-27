@@ -3,7 +3,7 @@ import { CartItemType } from "./CartProvider";
 
 export type OrderPropType = {
   email: string;
-  orderDate: string;
+  orderDate: Date;
   orderId: number;
   total: number;
   items: CartItemType[];

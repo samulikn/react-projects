@@ -10,15 +10,13 @@ const ORDERS_URL = "/orders/";
 
 function AccountOrders() {
   const [message, setMessage] = useState<string>("");
-  const [visibleOrders, setVisibleOrders] = useState<OrderPropType[]>([]);
 
   const { auth } = useAuth();
   const user = auth.email;
   const { orders, setOrders } = useOrders();
   const axiosPrivate = useAxiosPrivate();
 
-  const ordersFrom = 0;
-  const ordersTo = 2;
+  let count = 2; // load 2 more orders
 
   useEffect(() => {
     setMessage("");
@@ -41,9 +39,29 @@ function AccountOrders() {
     getOrders();
   }, [user]);
 
-  useEffect(() => {
-    setVisibleOrders(orders.slice(ordersFrom, ordersTo));
-  }, [orders, ordersTo]);
+  const handleLoadMore = async (): Promise<void> => {
+    const lastOrderDate = orders[orders.length - 1].orderDate;
+
+    try {
+      const response = await axiosPrivate.get(
+        ORDERS_URL +
+          encodeURIComponent(user) +
+          "/" +
+          encodeURIComponent(lastOrderDate.toString()) +
+          "/" +
+          encodeURIComponent(count)
+      );
+      setOrders(orders.concat(response?.data));
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 406) {
+          setMessage("No more orders.");
+        } else {
+          console.error(err);
+        }
+      }
+    }
+  };
 
   let content: ReactElement | ReactElement[] = !message ? (
     <p className="m-4">Loading...</p>
@@ -51,21 +69,28 @@ function AccountOrders() {
     <p>{message}</p>
   );
 
-  if (visibleOrders?.length) {
-    content = visibleOrders.map((order) => {
+  if (orders?.length) {
+    content = orders.map((order) => {
       return <Order key={order.orderId} order={order} />;
     });
   }
 
   return (
-    <div>
+    <section>
       <h3 className="mt-6 mb-2 ml-5 text-left text-xl  text-teal-800">
-        Orders:
+        Order History:
       </h3>
       <ul className="mx-5">{content}</ul>
-    </div>
+      <button
+        type="button"
+        hidden={!orders.length}
+        onClick={handleLoadMore}
+        className="ml-14 px-4 py-1 border-2 border-solid rounded-xl bg-gray-300"
+      >
+        Load more...
+      </button>
+    </section>
   );
-  // }
 }
 
 export default AccountOrders;

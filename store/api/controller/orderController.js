@@ -118,8 +118,44 @@ const getAllOrdersByUser = asyncHandler(async (req, res) => {
 
   const orders = await Order.find({ email: registeredUser.email })
     .sort({ orderId: -1 })
+    .limit(2)
     .lean()
     .exec();
+  if (!orders.length) {
+    return res.status(406).json({ message: "No data found! " });
+  }
+  res.json(orders);
+});
+
+// desc: Get few orders by user
+// route: GET
+const getFewOrdersByUser = asyncHandler(async (req, res) => {
+  const { user, lastOrderDate, count } = req.params;
+
+  if (!user || !lastOrderDate || !count) {
+    return res
+      .status(400)
+      .json({ message: "user, date and count of orders are required!" });
+  }
+
+  const registeredUser = await User.findByEmail(user);
+
+  if (!registeredUser) {
+    return res
+      .status(400)
+      .json({ message: `Username ${user} is not registered.` });
+  }
+
+  const orderDate = new Date(lastOrderDate);
+
+  const orders = await Order.find({ email: registeredUser.email })
+    .where("orderDate")
+    .lt(lastOrderDate)
+    .sort({ orderId: -1 })
+    .limit(count)
+    .lean()
+    .exec();
+
   if (!orders.length) {
     return res.status(406).json({ message: "No data found! " });
   }
@@ -132,4 +168,5 @@ module.exports = {
   updateOrder,
   deleteOrder,
   getAllOrdersByUser,
+  getFewOrdersByUser,
 };

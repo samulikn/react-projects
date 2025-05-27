@@ -13,5 +13,6 @@ router
 router.use(verifyJWT)
 
 router.route("/:user").get(orderController.getAllOrdersByUser); //get all orders for auth user
+router.route("/:user/:lastOrderDate/:count").get(orderController.getFewOrdersByUser);
 
 module.exports = router;
