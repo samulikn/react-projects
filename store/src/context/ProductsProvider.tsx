@@ -3,26 +3,11 @@ import { ReactElement, createContext, useEffect, useState } from "react";
 export type ProductType = {
   sku: string;
   name: string;
+  description: string;
   price: number;
 };
 
-const initProductsState: ProductType[] = [
-  //     {
-  //         "sku": "item0001",
-  //         "name": "White bread",
-  //         "price": 2.99
-  //     },
-  //     {
-  //         "sku": "item0002",
-  //         "name": "Whole wheat bread",
-  //         "price": 2.89
-  //     },
-  //     {
-  //         "sku": "item0003",
-  //         "name": "Banana bread",
-  //         "price": 3.05
-  //     }
-];
+const initProductsState: ProductType[] = [];
 
 export type UseProductsContextType = { products: ProductType[] };
 

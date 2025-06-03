@@ -51,7 +51,6 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
       setLastname(user.lastname);
       setEmail(user.email);
       setId(user._id);
-
       const birthday: string = user.birthday?.substring(
         0,
         user.birthday.indexOf("T")
@@ -61,20 +60,19 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
   }, []);
 
   useEffect(() => {
-    setError("")
-    setSuccess(false)
-  }, [firstname, lastname, email, birthday])
+    setError("");
+    setSuccess(false);
+  }, [firstname, lastname, email, birthday]);
 
-  const handleLogout = async (e: React.MouseEvent<HTMLElement>) => {
+  const handleLogout = async (
+    e: React.MouseEvent<HTMLElement>
+  ): Promise<void> => {
     e.preventDefault();
 
     try {
-      // const response =
-      // check if logout is just for one user
       await axios.post(LOGOUT_URL, JSON.stringify({}), {
         headers: { "Content-type": "application/json" },
       });
-      // console.log(JSON.stringify(response?.data));
       setAuth({ email: "", password: "", accessToken: "" });
       setOrders([]);
       navigate("/");
@@ -83,17 +81,18 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
     }
   };
 
-  const handleSave = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSave = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
-    const validEmail: boolean = EMAIL_REGEX.test(email)
+    const validEmail: boolean = EMAIL_REGEX.test(email);
 
     if (!id || !email || !firstname || !lastname || !validEmail) {
-      setError("Invalid input data!")
+      setError("Invalid input data!");
       return;
     }
-    
+
     try {
-      // const response = 
       await axiosPrivate.patch(
         USER_URL,
         JSON.stringify({ id, email, firstname, lastname, birthday })
@@ -205,11 +204,7 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
           </div>
           <p
             className={
-              !success
-                ? error
-                  ? "text-red-600"
-                  : "hidden"
-                : "text-green-600"
+              !success ? (error ? "text-red-600" : "hidden") : "text-green-600"
             }
           >
             {error ? error : "Saved"}

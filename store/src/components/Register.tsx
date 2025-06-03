@@ -20,7 +20,7 @@ function Register() {
 
   const [firstname, setFirstname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
-  const [birthday, setBirthday] = useState<Date>();
+  const [birthday, setBirthday] = useState<string>("");
 
   const [email, setEmail] = useState<string>("");
   const [validEmail, setValidEmail] = useState<boolean>(false);
@@ -66,7 +66,7 @@ function Register() {
       setPassword("");
       setFirstname("");
       setLastname("");
-      setBirthday(undefined);
+      setBirthday("");
       navigate("/myaccount");
     }
   }, [success, navigate]);
@@ -78,7 +78,7 @@ function Register() {
     setLastname(e.target.value);
   };
   const onBirthdayChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBirthday(new Date(e.target.value));
+    setBirthday(new Date(e.target.value).toISOString()); //
   };
   const onEmailChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value.toLowerCase());

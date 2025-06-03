@@ -14,13 +14,13 @@ const getAllProducts = asyncHandler(async (req, res) => {
 // desc: Create new product
 // route: POST
 const createNewProduct = asyncHandler(async (req, res) => {
-  const { sku, name, price } = req.body;
+  const { sku, name, description, price } = req.body;
   const newSKU = '';
 
-  if (!sku || !name || !price) {
+  if (!sku || !name || !description || !price) {
     return res
       .status(400)
-      .json({ message: "SKU, name and price are required!" });
+      .json({ message: "SKU, name, description and price are required!" });
   }
 
   // check for duplicate data
@@ -32,7 +32,7 @@ const createNewProduct = asyncHandler(async (req, res) => {
       .json({ message: `Duplicate sku ${sku}. Sku should be unique.` });
   }
 
-  const newProduct = { sku, name, price };
+  const newProduct = { sku, name, description, price };
 
   const product = await Product.create(newProduct);
 
@@ -46,7 +46,7 @@ const createNewProduct = asyncHandler(async (req, res) => {
 // desc: Update product
 // route: PATCH
 const updateProduct = asyncHandler(async (req, res) => {
-  const { id, sku, name, price } = req.body;
+  const { id, sku, name, description, price } = req.body;
 
   if (!id || !name || !price) {
     return res
@@ -61,6 +61,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 
   product.name = name;
+  product.description = description;
   product.price = price;
 
   const updatedProduct = await product.save();

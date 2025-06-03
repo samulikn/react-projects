@@ -16,14 +16,21 @@ function AccountOrders() {
   const { orders, setOrders } = useOrders();
   const axiosPrivate = useAxiosPrivate();
 
-  let count = 2; // load 2 more orders
+  let count: number = 2; // load 2 more orders
 
   useEffect(() => {
     setMessage("");
+    const now: string = new Date().toISOString();
+
     const getOrders = async (): Promise<void> => {
       try {
         const response = await axiosPrivate.get<OrderPropType[]>(
-          ORDERS_URL + encodeURIComponent(user)
+          ORDERS_URL +
+            encodeURIComponent(user) +
+            "/" +
+            encodeURIComponent(now) +
+            "/" +
+            encodeURIComponent(count)
         );
         setOrders(response?.data);
       } catch (err) {
@@ -40,14 +47,13 @@ function AccountOrders() {
   }, [user]);
 
   const handleLoadMore = async (): Promise<void> => {
-    const lastOrderDate = orders[orders.length - 1].orderDate;
-
+    const orderDate: Date = orders[orders.length - 1].orderDate;
     try {
-      const response = await axiosPrivate.get(
+      const response = await axiosPrivate.get<OrderPropType[]>(
         ORDERS_URL +
           encodeURIComponent(user) +
           "/" +
-          encodeURIComponent(lastOrderDate.toString()) +
+          encodeURIComponent(orderDate.toString()) +
           "/" +
           encodeURIComponent(count)
       );

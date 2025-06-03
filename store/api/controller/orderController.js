@@ -21,7 +21,7 @@ const getAllOrders = asyncHandler(async (req, res) => {
 // To do:
 const createNewOrder = asyncHandler(async (req, res) => {
   const { email, total, items, status } = req.body;
-  const orderDate = new Date();
+  const orderDate = new Date().toISOString();
 
   if (!email || !items) {
     return res.status(400).json({ message: "email and items are required!" });
@@ -130,9 +130,9 @@ const getAllOrdersByUser = asyncHandler(async (req, res) => {
 // desc: Get few orders by user
 // route: GET
 const getFewOrdersByUser = asyncHandler(async (req, res) => {
-  const { user, lastOrderDate, count } = req.params;
+  const { user, orderDate, count } = req.params;
 
-  if (!user || !lastOrderDate || !count) {
+  if (!user || !orderDate || !count) {
     return res
       .status(400)
       .json({ message: "user, date and count of orders are required!" });
@@ -146,18 +146,16 @@ const getFewOrdersByUser = asyncHandler(async (req, res) => {
       .json({ message: `Username ${user} is not registered.` });
   }
 
-  const orderDate = new Date(lastOrderDate);
-
   const orders = await Order.find({ email: registeredUser.email })
     .where("orderDate")
-    .lt(lastOrderDate)
+    .lt(orderDate)
     .sort({ orderId: -1 })
     .limit(count)
     .lean()
     .exec();
 
   if (!orders.length) {
-    return res.status(406).json({ message: "No data found! " });
+    return res.status(406).json({ message: "No data found."});
   }
   res.json(orders);
 });

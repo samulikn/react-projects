@@ -16,12 +16,11 @@ function Product({
 }: PropsType): ReactElement {
   const img: string = new URL(`../images/${product.sku}.jpeg`, import.meta.url)
     .href;
-  // console.log(img);
 
   const addToCart = () =>
     dispatch({ type: REDUCER_ACTIONS.ADD, payload: { ...product, qty: 1 } });
 
-  const content = (
+  const content: ReactElement | ReactElement[] = (
     <article className="p-4 mx-auto sm:mx-5 mb-4 max-w-[280px] flex flex-col justify-end shadow-lg rounded-xl">
       <div className="pb-3 self-center flex justify-center">
         <img src={img} alt={product.name} className="max-h-full max-w-full" />
@@ -29,6 +28,7 @@ function Product({
       <h3 className="pl-3 mt-1 md:text-2xl text-sm uppercase font-bold mb-2 text-slate-900">
         {product.name}
       </h3>
+      <p className="pl-3 text-lg text-gray-500">{product.description}</p>
       <p className="pl-3 font-bold text-xl mb-2">
         {new Intl.NumberFormat("nl-NL", {
           style: "currency",
