@@ -6,7 +6,7 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "../api/axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { AxiosError } from "axios";
 
 export const EMAIL_REGEX: RegExp = /^[\w-\.]+@([\w+])+\.([a-z]){2,4}$/i;
@@ -38,6 +38,7 @@ function Register() {
   const [success, setSuccess] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     if (nameRef.current) {
@@ -132,14 +133,9 @@ function Register() {
       return;
     }
     try {
-      // const response = 
-      await axios.post(
+      await axiosPrivate.post(
         REGISTER_URL,
-        JSON.stringify({ email, password, firstname, lastname, birthday }),
-        {
-          headers: { "Content-type": "application/json" },
-          withCredentials: true,
-        }
+        JSON.stringify({ email, password, firstname, lastname, birthday })
       );
       setSuccess(true);
       //clear input fields
@@ -273,14 +269,7 @@ function Register() {
           >
             {error}
           </p>
-          <button
-            className="my-2 p-1.5 w-11/12 bg-[#2c2e3d] text-white rounded-md active:bg-teal-800"
-            // disabled={
-            //   !validEmail || !validPassword || !validMatchPassword
-            //     ? true
-            //     : false
-            // }
-          >
+          <button className="my-2 p-1.5 w-11/12 bg-[#2c2e3d] text-white rounded-md active:bg-teal-800">
             Register
           </button>
         </form>

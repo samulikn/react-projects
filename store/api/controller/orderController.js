@@ -1,7 +1,6 @@
 const Order = require("../models/orders");
 const User = require("../models/users");
 const asyncHandler = require("express-async-handler");
-const { format } = require("date-fns");
 
 // desc: get all orders from MongoDB
 // route: GET

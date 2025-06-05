@@ -8,7 +8,7 @@ import { AxiosError } from "axios";
 
 const ORDERS_URL = "/orders/";
 
-function AccountOrders() {
+function AccountOrders(): ReactElement | ReactElement[] {
   const [message, setMessage] = useState<string>("");
 
   const { auth } = useAuth();

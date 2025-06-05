@@ -3,8 +3,8 @@ import useAuth from "../hooks/useAuth";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
-import { axiosPrivate } from "../api/axios";
 import { AxiosError } from "axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const ORDER_URL = "/orders";
 
@@ -16,6 +16,8 @@ function Cart() {
   const { dispatch, REDUCER_ACTIONS, totalItems, totalPrice, cart } = useCart();
   const { auth } = useAuth();
   const email = auth.email;
+
+  const axiosPrivate = useAxiosPrivate();
 
   const onSubmitOrder = async (): Promise<void> => {
     if (auth) {

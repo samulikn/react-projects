@@ -3,11 +3,13 @@ import { useState, useEffect, useRef } from "react";
 import axios from "../api/axios";
 import { AxiosError } from "axios";
 import useAuth from "../hooks/useAuth";
+import useOrders from "../hooks/useOrders";
 
 const LOGIN_URL = "/auth";
 
 function Login() {
   const { setAuth } = useAuth();
+  const { setOrders } = useOrders();
 
   const navigate = useNavigate();
 
@@ -49,6 +51,7 @@ function Login() {
       );
       const accessToken = response?.data?.accessToken;
       setAuth({ email, password, accessToken });
+      setOrders([]);
       setEmail("");
       setPassword("");
       navigate("/myaccount");

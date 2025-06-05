@@ -2,9 +2,9 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState, ReactElement, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import axios, { axiosPrivate } from "../api/axios";
 import useOrders from "../hooks/useOrders";
 import { AxiosError } from "axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 export type UserType = {
   _id: string;
@@ -15,7 +15,7 @@ export type UserType = {
 };
 
 const LOGOUT_URL = "/auth/logout";
-const USER_URL = "/users";
+const USER_URL = "/users/";
 const EMAIL_REGEX: RegExp = /^[\w-\.]+@([\w+])+\.([a-z]){2,4}$/i;
 
 function AccountInfoForm(): ReactElement | ReactElement[] {
@@ -32,32 +32,30 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
   const [success, setSuccess] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
-    const fetchData = async (): Promise<UserType> => {
-      const data = await fetch(
-        "http://localhost:5000/users/" + encodeURIComponent(user)
-      )
-        .then((res) => {
-          return res.json();
-        })
-        .catch((err) => {
-          if (err instanceof Error) console.log(err.message);
-        });
-      return data;
+    const fetchData = async (): Promise<any> => {
+      try {
+        const response = await axiosPrivate.get<UserType>(
+          USER_URL + encodeURIComponent(user)
+        );
+        return response?.data;
+      } catch (err) {
+        if (err instanceof AxiosError) console.log(err.message);
+      }
     };
     fetchData().then((user) => {
       setFirstname(user.firstname);
       setLastname(user.lastname);
       setEmail(user.email);
       setId(user._id);
-      const birthday: string = user.birthday?.substring(
-        0,
-        user.birthday.indexOf("T")
-      );
+      const birthday: string = user.birthday
+        ? user.birthday.substring(0, user.birthday.indexOf("T"))
+        : "";
       setBirthday(birthday);
     });
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     setError("");
@@ -70,9 +68,7 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
     e.preventDefault();
 
     try {
-      await axios.post(LOGOUT_URL, JSON.stringify({}), {
-        headers: { "Content-type": "application/json" },
-      });
+      await axiosPrivate.post(LOGOUT_URL, JSON.stringify({}));
       setAuth({ email: "", password: "", accessToken: "" });
       setOrders([]);
       navigate("/");

@@ -3,11 +3,7 @@ import useCart from "../hooks/useCart";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-type PropsType = {
-  isLogged: boolean;
-};
-
-function Nav({ isLogged }: PropsType) {
+function Nav() {
   const { auth } = useAuth();
   const user = auth.email;
 
