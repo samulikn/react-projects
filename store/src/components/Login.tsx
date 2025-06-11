@@ -110,7 +110,7 @@ function Login() {
         <p ref={errorRef} className={error ? "text-red-600 text-lg" : "hidden"}>
           {error}
         </p>
-        <button className="my-2 p-1.5 w-full bg-[#2c2e3d] text-white rounded-md hover:bg-teal-800">
+        <button className="my-2 p-1.5 w-full bg-[#2c2e3d] text-white rounded-md active:opacity-45 hover:bg-teal-800">
           Login
         </button>
       </form>

@@ -6,8 +6,6 @@ type PropsType = {
 };
 
 function OrderItem({ item, expanded }: PropsType) {
-  //retrive order by id and logged user:
-
   const img: string = new URL(`../images/${item.sku}.jpeg`, import.meta.url)
     .href;
 

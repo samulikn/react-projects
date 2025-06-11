@@ -269,7 +269,7 @@ function Register() {
           >
             {error}
           </p>
-          <button className="my-2 p-1.5 w-11/12 bg-[#2c2e3d] text-white rounded-md active:bg-teal-800">
+          <button className="my-2 p-1.5 w-11/12 bg-[#2c2e3d] text-white rounded-md active:opacity-45 hover:bg-teal-800">
             Register
           </button>
         </form>

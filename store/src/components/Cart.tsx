@@ -78,11 +78,14 @@ function Cart() {
         <button
           disabled={!totalItems}
           onClick={onSubmitOrder}
-          className="mt-4 px-4 py-1.5 border-solid border-2 rounded-2xl bg-[#2C2E3D] text-white active:bg-teal-800"
+          className="mt-4 px-4 py-1.5 border-solid border-2 rounded-2xl 
+                    bg-[#2C2E3D] text-white active:opacity-45 hover:bg-teal-800"
         >
           Checkout
         </button>
-        <p aria-disabled={!error} className="text-red-600">{error}</p>
+        <p aria-disabled={!error} className="text-red-600">
+          {error}
+        </p>
       </div>
       <p className="text-center">
         You should{" "}

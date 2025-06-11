@@ -47,6 +47,7 @@ function AccountOrders(): ReactElement | ReactElement[] {
   }, [user]);
 
   const handleLoadMore = async (): Promise<void> => {
+    setMessage("");
     const orderDate: Date = orders[orders.length - 1].orderDate;
     try {
       const response = await axiosPrivate.get<OrderPropType[]>(
@@ -70,7 +71,7 @@ function AccountOrders(): ReactElement | ReactElement[] {
   };
 
   let content: ReactElement | ReactElement[] = !message ? (
-    <p className="m-4">Loading...</p>
+    <p className="m-4 flex-grow">Loading...</p>
   ) : (
     <p>{message}</p>
   );
@@ -89,9 +90,9 @@ function AccountOrders(): ReactElement | ReactElement[] {
       <ul className="mx-5">{content}</ul>
       <button
         type="button"
-        hidden={!orders.length}
+        hidden={!orders.length || message.length > 0}
         onClick={handleLoadMore}
-        className="ml-14 px-4 py-1 border-2 border-solid rounded-xl bg-gray-300"
+        className="ml-14 px-4 py-1 border-2 border-solid rounded-xl bg-gray-300 active:opacity-45"
       >
         Load more...
       </button>
