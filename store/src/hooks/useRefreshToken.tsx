@@ -1,10 +1,5 @@
 import axios from "../api/axios";
 import useAuth from "./useAuth";
-import { AuthType } from "../context/AuthProvider";
-
-type prevType = {
-  prev: AuthType;
-};
 
 const useRefreshToken = () => {
   const { auth, setAuth } = useAuth();
@@ -14,17 +9,11 @@ const useRefreshToken = () => {
       withCredentials: true,
     });
 
-    const newToken: string = response.data.accessToken;
-
     setAuth({
-      email: auth.email,
+      email: response.data.username,
       password: auth.password,
-      accessToken: newToken,
+      accessToken: response.data.accessToken,
     });
-
-    // setAuth((prev) => {
-    //   return { ...prev, accessToken: newToken };
-    // });
 
     return response.data.accessToken;
   };

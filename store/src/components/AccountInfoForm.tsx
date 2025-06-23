@@ -2,9 +2,9 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState, ReactElement, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import useOrders from "../hooks/useOrders";
 import { AxiosError } from "axios";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useLogout from "../hooks/useLogout";
 
 export type UserType = {
   _id: string;
@@ -14,13 +14,11 @@ export type UserType = {
   email: string;
 };
 
-const LOGOUT_URL = "/auth/logout";
 const USER_URL = "/users/";
 const EMAIL_REGEX: RegExp = /^[\w-\.]+@([\w+])+\.([a-z]){2,4}$/i;
 
 function AccountInfoForm(): ReactElement | ReactElement[] {
-  const { auth, setAuth } = useAuth();
-  const { setOrders } = useOrders();
+  const { auth } = useAuth();
   const user = auth.email;
 
   const [firstname, setFirstname] = useState<string>("");
@@ -31,6 +29,7 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
 
+  const logout = useLogout();
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
 
@@ -40,6 +39,7 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
         const response = await axiosPrivate.get<UserType>(
           USER_URL + encodeURIComponent(user)
         );
+        // console.log(response?.data)
         return response?.data;
       } catch (err) {
         if (err instanceof AxiosError) console.log(err.message);
@@ -55,27 +55,18 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
         : "";
       setBirthday(birthday);
     });
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     setError("");
     setSuccess(false);
   }, [firstname, lastname, email, birthday]);
 
-  const handleLogout = async (
-    e: React.MouseEvent<HTMLElement>
-  ): Promise<void> => {
+  const handleLogout = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
-
-    try {
-      await axiosPrivate.post(LOGOUT_URL, JSON.stringify({}));
-      setAuth({ email: "", password: "", accessToken: "" });
-      setOrders([]);
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    await logout();
+    navigate("/");
+  }
 
   const handleSave = async (
     e: React.FormEvent<HTMLFormElement>

@@ -104,7 +104,7 @@ const getUserInfo = asyncHandler(async (req, res) => {
     const { user } = req.params;
 
     if (!user) {
-      return res.status(400).json({ message: "email is required!" });
+      return res.status(400).json({ message: "Email is required!" });
     }
 
     const foundUser = await User.findByEmail(user);
