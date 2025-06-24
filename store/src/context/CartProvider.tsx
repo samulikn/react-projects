@@ -9,7 +9,10 @@ export type CartItemType = {
 
 type CartStateType = { cart: CartItemType[] };
 
-const initCartState: CartStateType = { cart: [] };
+const inCart: CartItemType[] = JSON.parse(localStorage.getItem("cart")!)
+
+// const initCartState: CartStateType = { cart: [] };
+const initCartState: CartStateType = inCart ? { cart: inCart } : { cart: [] };
 
 const ACTION_TYPE = {
   ADD: "ADD",

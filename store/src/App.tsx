@@ -13,13 +13,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<ProductList />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="login" element={<Login />}></Route>
-          <Route path="register" element={<Register />}></Route>
+        <Route element={<PersistLogin />}>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<ProductList />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="login" element={<Login />}></Route>
+            <Route path="register" element={<Register />}></Route>
 
-          <Route element={<PersistLogin />}>
             <Route element={<RequireAuth />}>
               <Route path="myaccount" element={<MyAccount />}></Route>
             </Route>

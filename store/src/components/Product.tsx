@@ -13,7 +13,7 @@ function Product({
   product,
   dispatch,
   REDUCER_ACTIONS,
-}: PropsType): ReactElement {
+}: PropsType): ReactElement | ReactElement[] {
   const img: string = new URL(`../images/${product.sku}.jpeg`, import.meta.url)
     .href;
 

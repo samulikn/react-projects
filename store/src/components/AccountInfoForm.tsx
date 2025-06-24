@@ -55,7 +55,7 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
         : "";
       setBirthday(birthday);
     });
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     setError("");
