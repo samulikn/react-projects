@@ -1,6 +1,6 @@
 import useCart from "../hooks/useCart";
 import useAuth from "../hooks/useAuth";
-import { ReactElement, useState, useEffect } from "react";
+import { ReactElement, useState } from "react";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 import { AxiosError } from "axios";
@@ -18,10 +18,6 @@ function Cart(): ReactElement | ReactElement[] {
   const email = auth.email;
 
   const axiosPrivate = useAxiosPrivate();
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
 
   const onSubmitOrder = async (): Promise<void> => {
     if (auth) {

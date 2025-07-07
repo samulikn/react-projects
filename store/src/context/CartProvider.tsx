@@ -1,4 +1,5 @@
 import { ReactElement, createContext, useMemo, useReducer } from "react";
+import useStorageCart from "../hooks/useStorageCart";
 
 export type CartItemType = {
   sku: string;
@@ -8,11 +9,6 @@ export type CartItemType = {
 };
 
 type CartStateType = { cart: CartItemType[] };
-
-const inCart: CartItemType[] = JSON.parse(localStorage.getItem("cart")!)
-
-// const initCartState: CartStateType = { cart: [] };
-const initCartState: CartStateType = inCart ? { cart: inCart } : { cart: [] };
 
 const ACTION_TYPE = {
   ADD: "ADD",
@@ -95,9 +91,18 @@ const reducer = (
 const useCartContext = (initialState: CartStateType) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const key: string = "cart";
+  const initValue: string = "[]";
+  const storageCart = useStorageCart({ key, initValue })[1]
+
   const REDUCER_ACTIONS = useMemo(() => {
     return ACTION_TYPE;
   }, []);
+
+  useMemo(() => {
+    storageCart(state.cart);
+    return state;
+  }, [state]);
 
   const totalItems: number = state.cart.reduce((prev, cartItem) => {
     return prev + cartItem.qty;
@@ -131,6 +136,12 @@ const CartContext = createContext<UseCartContextType>(initCartContextState);
 type childrenType = { children: ReactElement | ReactElement[] };
 
 export const CartProvider = ({ children }: childrenType) => {
+  const key: string = "cart";
+  const initValue: string = "[]";
+  const initCartState: CartStateType = {
+    cart: useStorageCart({ key, initValue })[0],
+  };
+
   return (
     <CartContext.Provider value={useCartContext(initCartState)}>
       {children}

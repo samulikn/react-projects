@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import useCart from "../hooks/useCart";
 import useProducts from "../hooks/useProducts";
 import Product from "./Product";
@@ -6,10 +6,6 @@ import Product from "./Product";
 export default function ProductList(): ReactElement | ReactElement[] {
   const { dispatch, REDUCER_ACTIONS, cart } = useCart();
   const { products } = useProducts();
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart))
-  }, [cart])
 
   let content: ReactElement | ReactElement[] = <p>Loading...</p>;
 
