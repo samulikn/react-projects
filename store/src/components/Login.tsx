@@ -1,10 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import axios from "../api/axios";
 import { AxiosError } from "axios";
 import useAuth from "../hooks/useAuth";
 import useOrders from "../hooks/useOrders";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+// import { jwtDecode } from "jwt-decode";
 
+export type UserInfoType = {
+  userInfo: {
+    email: string;
+    name: string;
+  };
+};
 const LOGIN_URL = "/auth";
 
 function Login() {
@@ -19,6 +26,8 @@ function Login() {
 
   const emailRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLParagraphElement>(null);
+
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     if (emailRef.current) {
@@ -41,16 +50,21 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
+      const response = await axiosPrivate.post(
         LOGIN_URL,
-        JSON.stringify({ email, password }),
-        {
-          headers: { "Content-type": "application/json" },
-          withCredentials: true,
-        }
+        JSON.stringify({ email, password })
       );
-      const accessToken = response?.data?.accessToken;
-      setAuth({ email, password, accessToken });
+      // const accessToken: string = response?.data?.accessToken;
+      // const decoded: UserInfoType | undefined = accessToken
+      //   ? jwtDecode(accessToken)
+      //   : undefined;
+      // const name = decoded?.userInfo?.name;
+
+      setAuth({
+        email: email,
+        accessToken: response?.data?.accessToken,
+        name: response?.data?.name,
+      });
       setOrders([]);
       setEmail("");
       setPassword("");

@@ -2,13 +2,12 @@ import { ReactElement, createContext, useState } from "react";
 
 export type AuthType = {
   email: string;
-  password: string;
   accessToken: string;
+  name?: string;
 };
 
 const initAuthState: AuthType = {
   email: "",
-  password: "",
   accessToken: "",
 };
 
@@ -18,8 +17,8 @@ export type UseAuthContextType = {
 };
 
 const initAuthContext: UseAuthContextType = {
-  auth: { email: "", password: "", accessToken: "" },
-  setAuth: () => {}
+  auth: { email: "", accessToken: "" },
+  setAuth: () => {},
 };
 
 const AuthContext = createContext(initAuthContext);

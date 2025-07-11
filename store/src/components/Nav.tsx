@@ -5,13 +5,13 @@ import useAuth from "../hooks/useAuth";
 
 function Nav() {
   const { auth } = useAuth();
-  const user = auth.email;
+  const username = auth.name;
 
   const { totalItems } = useCart();
 
-  const username = user ? (
-    <span className="pl-1 text-base hidden md:inline hover:text-teal-700">
-      {user}
+  const user = auth.accessToken ? (
+    <span className="pl-1 text-base md:inline hover:text-teal-700">
+      {username}
     </span>
   ) : null;
 
@@ -20,7 +20,7 @@ function Nav() {
   return (
     <div className="inline-flex justify-end gap-8 text-xl flex-norap">
       <Link to={account}>
-        <i className="bi bi-person hover:text-teal-700">{username}</i>
+        <i className="bi bi-person hover:text-teal-700"> {username}</i>
       </Link>
       <Link to="/cart">
         <div className="inline-flex hover:text-teal-700">

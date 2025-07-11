@@ -12,7 +12,7 @@ const useLogout = () => {
   const logout = async () => {
     try {
       await axiosPrivate.post(LOGOUT_URL, JSON.stringify({}));
-      setAuth({ email: "", password: "", accessToken: "" });
+      setAuth({ email: "", accessToken: "", name: "" });
       setOrders([]);
     } catch (err) {
       console.error(err);

@@ -18,6 +18,8 @@ const handleLogin = asyncHandler(async (req, res) => {
     return res.sendStatus(401); // Unauthorized
   }
 
+  const name = existsUser.firstname;
+
   // evaluate password
   const match = await bcrypt.compare(password, existsUser.password);
 
@@ -25,8 +27,9 @@ const handleLogin = asyncHandler(async (req, res) => {
     // create JWTs
     const accessToken = jwt.sign(
       {
-        user: {
+        userInfo: {
           email: existsUser.email,
+          // name: existsUser.firstname,
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
@@ -35,7 +38,10 @@ const handleLogin = asyncHandler(async (req, res) => {
 
     const refreshToken = jwt.sign(
       {
-        email: existsUser.email,
+        userInfo: {
+          email: existsUser.email,
+          // name: existsUser.firstname,
+        },
       },
       process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: "1d" }
@@ -43,7 +49,7 @@ const handleLogin = asyncHandler(async (req, res) => {
 
     // Saving refreshToken with current user
     existsUser.refreshToken = refreshToken;
-    const result = await existsUser.save();
+    await existsUser.save();
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
@@ -51,7 +57,7 @@ const handleLogin = asyncHandler(async (req, res) => {
       secure: true,
       maxAge: 1 * 24 * 60 * 60 * 1000,
     });
-    res.json({ accessToken });
+    res.json({ accessToken, name });
   } else {
     res.status(401).json({ message: "Unauthorized!" });
   }
@@ -77,24 +83,26 @@ const refresh = (req, res) => {
         return res.status(403).json({ message: "Forbidden" });
       }
 
-      const existsUser = await User.findByEmail(decoded.email);
+      const existsUser = await User.findByEmail(decoded.userInfo.email);
       if (!existsUser) {
         return res.status(401).json({ message: "Unauthorized." });
       }
 
-      const username = existsUser.email;
+      const email = existsUser.email
+      const name = existsUser.firstname
 
       const accessToken = jwt.sign(
         {
-          user: {
+          userInfo: {
             email: existsUser.email,
+            // name: existsUser.firstname,
           },
         },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "10s" }
       );
 
-      res.json({ username, accessToken });
+      res.json({ email, accessToken, name });
     })
   );
 };

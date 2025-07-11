@@ -20,6 +20,7 @@ const EMAIL_REGEX: RegExp = /^[\w-\.]+@([\w+])+\.([a-z]){2,4}$/i;
 function AccountInfoForm(): ReactElement | ReactElement[] {
   const { auth } = useAuth();
   const user = auth.email;
+  const name = auth.name;
 
   const [firstname, setFirstname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
@@ -39,7 +40,6 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
         const response = await axiosPrivate.get<UserType>(
           USER_URL + encodeURIComponent(user)
         );
-        // console.log(response?.data)
         return response?.data;
       } catch (err) {
         if (err instanceof AxiosError) console.log(err.message);
@@ -62,11 +62,13 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
     setSuccess(false);
   }, [firstname, lastname, email, birthday]);
 
-  const handleLogout = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
+  const handleLogout = async (
+    e: React.MouseEvent<HTMLElement>
+  ): Promise<void> => {
     e.preventDefault();
     await logout();
     navigate("/");
-  }
+  };
 
   const handleSave = async (
     e: React.FormEvent<HTMLFormElement>
@@ -118,7 +120,7 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
       <div className="flex justify-between mx-6">
         <div>
           <h2 className="self-start mt-4 text-2xl text-teal-700">
-            Welcome, {firstname}
+            Welcome, {name}
           </h2>
           <p className="mb-3">{auth.email}</p>
         </div>
