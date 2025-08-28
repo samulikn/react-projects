@@ -20,7 +20,7 @@ function Cart(): ReactElement | ReactElement[] {
   const axiosPrivate = useAxiosPrivate();
 
   const onSubmitOrder = async (): Promise<void> => {
-    if (auth) {
+    if (email) {
       try {
         const response = await axiosPrivate.post(
           ORDER_URL,
@@ -72,20 +72,18 @@ function Cart(): ReactElement | ReactElement[] {
           );
         })}
       </ul>
-      <div className="mt-10 mr-8 flex flex-col items-end text-xl sm:text-2xl">
-        <p>Total items: {totalItems}</p>
-        <p>Total price: {totalPriceEUR}</p>
+      <div className="mt-10 mr-8 flex flex-col items-end text-xl">
+        <p className="text-2xl">Total items: {totalItems}</p>
+        <p className="text-2xl">Total price: {totalPriceEUR}</p>
         <button
-          disabled={!totalItems}
+          disabled={!email || !totalItems}
           onClick={onSubmitOrder}
-          className="mt-4 px-4 py-1.5 border-solid border-2 rounded-2xl 
-                    bg-[#2C2E3D] text-white active:opacity-45 hover:bg-teal-800"
+          className="disabled:opacity-45 mt-4 px-8 py-1.5 rounded-xl 
+                    bg-[#2c2e3d] text-white active:opacity-45 enabled:hover:bg-teal-800"
         >
           Checkout
         </button>
-        <p aria-disabled={!error} className="text-red-600">
-          {error}
-        </p>
+        <p className="text-red-600">{error}</p>
       </div>
       <p className="text-center">
         You should{" "}

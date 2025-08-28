@@ -4,7 +4,6 @@ import { AxiosError } from "axios";
 import useAuth from "../hooks/useAuth";
 import useOrders from "../hooks/useOrders";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-// import { jwtDecode } from "jwt-decode";
 
 export type UserInfoType = {
   userInfo: {
@@ -54,12 +53,6 @@ function Login() {
         LOGIN_URL,
         JSON.stringify({ email, password })
       );
-      // const accessToken: string = response?.data?.accessToken;
-      // const decoded: UserInfoType | undefined = accessToken
-      //   ? jwtDecode(accessToken)
-      //   : undefined;
-      // const name = decoded?.userInfo?.name;
-
       setAuth({
         email: email,
         accessToken: response?.data?.accessToken,

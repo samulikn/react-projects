@@ -24,15 +24,12 @@ function Register() {
 
   const [email, setEmail] = useState<string>("");
   const [validEmail, setValidEmail] = useState<boolean>(false);
-  // const [emailFocus, setEmailFocus] = useState<boolean>(false);
 
   const [password, setPassword] = useState<string>("");
   const [validPassword, setValidPassword] = useState<boolean>(false);
-  // const [passwordFocus, setPasswordFocus] = useState<boolean>(false);
 
   const [matchPassword, setMatchPassword] = useState<string>("");
   const [validMatchPassword, setValidMatchPassword] = useState<boolean>(false);
-  // const [matchPasswordFocus, setMatchPasswordFocus] = useState<boolean>(false);
 
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
@@ -206,7 +203,6 @@ function Register() {
           <div className="w-full">
             <input
               className="mb-5 p-1 w-11/12 border-2 rounded-md hover:shadow-md"
-              // ref={emailRef}
               id="email"
               name="email"
               type="text"
@@ -214,8 +210,6 @@ function Register() {
               required
               onChange={onEmailChanged}
               aria-invalid={validEmail ? "false" : "true"}
-              // onFocus={() => setEmailFocus(true)}
-              // onBlur={() => setEmailFocus(false)}
               placeholder="Type your e-mail"
               maxLength={25}
             ></input>
@@ -237,8 +231,6 @@ function Register() {
               required
               onChange={onPasswordChanged}
               aria-invalid={validPassword ? "false" : "true"}
-              // onFocus={() => setPasswordFocus(true)}
-              // onBlur={() => setPasswordFocus(false)}
               placeholder="Type password"
             ></input>
             <span className="pl-1">{passwordlValidationIcon}</span>
@@ -257,12 +249,9 @@ function Register() {
               required
               onChange={onMatchPasswordChanged}
               aria-invalid={validMatchPassword ? "false" : "true"}
-              // onFocus={() => setMatchPasswordFocus(true)}
-              // onBlur={() => setMatchPasswordFocus(false)}
             ></input>
             <span className="pl-1">{matchPasswordlValidationIcon}</span>
           </div>
-          {/* </div> */}
           <p
             ref={errorRef}
             className={error ? "text-red-600 text-sm" : "hidden"}

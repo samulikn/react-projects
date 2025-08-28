@@ -199,7 +199,7 @@ function AccountInfoForm(): ReactElement | ReactElement[] {
             {error ? error : "Saved"}
           </p>
           <button
-            className="py-1.5 px-10 border-solid border-2 rounded-2xl bg-[#2c2e3d]
+            className="py-1.5 px-14 border-solid border-2 rounded-xl bg-[#2c2e3d]
                        active:opacity-45 hover:bg-teal-800 text-xl text-white"
           >
             Save
